@@ -1,5 +1,5 @@
 
-
+/*
 -- OBJETIVO : CRIAR UMA FUNÇÃO DE DATA PERSONALIZADA
 
 SELECT
@@ -48,3 +48,37 @@ SELECT
 	[dbo].[fnPrimeiroNome](nome_gerente) AS 'FirstName'
 FROM 
 	dGerente
+*/
+
+
+-- CRIANDO FUNÇÃO DE DIFERENÇA DE DATAS 
+
+USE ContosoRetailDW
+
+SELECT 
+	EmployeeKey,
+	FirstName,
+	StartDate,
+	EndDate,
+	[dbo].[fn_Data_dif](StartDate,EndDate) AS 'Dif anos'
+FROM
+	DimEmployee
+
+
+CREATE FUNCTION fn_Data_dif(@Datainicio AS DATE, @Datafinal AS DATE)
+RETURNS INT
+AS
+BEGIN
+	DECLARE @Data1 AS INT, @Data2 AS INT
+	SET @Data1 = YEAR(@Datainicio)
+	SET @Data2 = YEAR(ISNULL(@Datafinal, GETDATE()))
+	
+	RETURN	
+		
+		@Data2 - @Data1
+END
+
+
+
+
+

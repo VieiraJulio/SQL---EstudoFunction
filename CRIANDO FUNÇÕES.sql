@@ -48,7 +48,7 @@ SELECT
 	[dbo].[fnPrimeiroNome](nome_gerente) AS 'FirstName'
 FROM 
 	dGerente
-*/
+
 
 
 -- CRIANDO FUNÇÃO DE DIFERENÇA DE DATAS 
@@ -78,7 +78,18 @@ BEGIN
 		@Data2 - @Data1
 END
 
+*/
+
+-- CRIAÇÃO DE UMA FUNÇÃO EM FORMATO DE TABELA 
+
+CREATE OR ALTER FUNCTION fn_Gender(@Gender AS VARCHAR(MAX))
+RETURNS TABLE
+AS
+RETURN (SELECT FirstName,Gender FROM DimEmployee WHERE Gender = @Gender)
 
 
-
-
+SELECT
+	FirstName,
+	Gender
+FROM
+	dbo.fn_Gender('M')
